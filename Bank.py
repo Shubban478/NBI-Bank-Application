@@ -12,9 +12,9 @@ class Bank:
     def get_customers(self):
         print(Bank.customers)
 
-    def add_customer(self, name, pnr):
-        self.pnr = pnr
+    def add_customer(self, pnr, name):
         self.name = name
+        self.pnr = pnr
 
         if pnr in Bank.customers:
             print(f'{self.pnr} is already a customer. Did you type in the wrong personnummer?')
@@ -52,8 +52,8 @@ class Bank:
 
 b = Bank()
 
-b.new_customer(199305257975, 'Sebastian Lundgren')
-b.new_customer(199205257975, 'Sluta Nu')
-b.new_customer(199305257975, 'Hej Då')
+b.add_customer(199305257975, 'Sebastian Lundgren')
+b.add_customer(199205257975, 'Sluta Nu')
+b.add_customer(199305257975, 'Sebastian Lundgren')
 
 b.get_customers()
