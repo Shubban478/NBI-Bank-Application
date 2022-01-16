@@ -1,77 +1,71 @@
 import Customer as ctr
+import Account as act
 
-customers = []
 
 class Bank:
 
-    def __init__(self):
-        self.name = None
-        self.pnr = None
+    proc_customers = []
+    proc_accounts = []
+    customers = []
+    accounts = []
 
     def _load(self):
         with open('Customers.txt') as customer:
             for line in customer:
-                customers.append(line.strip().split(':'))
-
-    def process_customer(self, data):
-        proc_customers = []
-        for student in customers:
-            proc_customers.append(ctr.Customer(student[0], student[1], student[2]))
-        return proc_customers
+                Bank.customers.append(line.strip().split(':'))
+            for line in Bank.customers:
+                Bank.proc_customers.append(ctr.Customer(line[0], line[1], line[2]))
+                Bank.proc_accounts.append(act.Account(line[1], line[3], line[4], line[5]))
 
     def get_customers(self):
-        for s in b.process_customer(customers):
-            print(s.name, s.pnr)
+        for c in Bank.proc_customers:
+            print(c.name, c.pnr)
 
-    def add_customer(self, pnr, name):
-        self.pnr = pnr
-        self.name = name
+    def add_customer(self, name, pnr):
+        for x in Bank.proc_customers:
+            if x.pnr == pnr:
+                print(f'{name} is already a customer. Did you mean to add someone else?')
+                break
+            else:
+                Bank.proc_customers.append(ctr.Customer(None, name, pnr))
+                break
 
-        if any(self.pnr in cust for cust in customers):
-            print(f'{self.pnr} is already a customer. Did you type in the wrong social security number?')
+    def change_customer_name(self, pnr, name):
+        for x in Bank.proc_customers:
+            if x.pnr == pnr:
+                x.name = name
+                break
+            else:
+                print(f'{pnr} is not a customer. Did you mean to change name of someone else?')
+                break
+
+    def get_customer(self, pnr):
+        for x in Bank.proc_customers:
+            if x.pnr == pnr:
+                print(x.cust_id, x.name, x.pnr)
+                break
         else:
-            customers.append([self.name, self.pnr])
-            print(f'{self.name}  was added to customers')
-
-    def change_customer_name(self, pnr):
-        if any(pnr in inner_list for inner_list in customers):
-            for sub_list in customers:
-                if pnr in sub_list:
-                    indx = customers.index(sub_list)
-                    customers[indx][1] = input('Set new name: ')
-
-    def get_customer(self, name):
-        if any(name in inner_list for inner_list in customers):
-            for sub_list in customers:
-                if name in sub_list:
-                    indx = customers.index(sub_list)
-                    print(customers[indx])
-        else:
-            print(f'No customer {name} exists')
+            print(f'Did not find social security number {pnr}. Did you type it correctly?')
 
     def remove_customer(self, pnr):
-        if any(pnr in inner_list for inner_list in customers):
-            for sub_list in customers:
-                if pnr in sub_list:
-                    indx = customers.index(sub_list)
-                    print(f'{customers[indx]} was removed from customers.')
-                    del customers[indx]
+        for x in Bank.proc_customers:
+            if x.pnr == pnr:
+                break
         else:
-            print(f'No customer {pnr} exists')
+            print(f'Did not find social security number {pnr}. Did you type it correctly?')
         # Tar bort kund med personnumret som angetts ur banken, alla kundens eventuella konton
         # tas också bort och resultatet returneras. Listan som returneras ska innehålla information
         # om alla konton som togs bort, saldot som kunden får tillbaka.
 
-    def get_account(self, pnr):
-        if any(pnr in inner_list for inner_list in customers):
-            for sub_list in customers:
-                if pnr in sub_list:
-                    indx = customers.index(sub_list)
-                    print(customers[indx][3:])
+    def get_account(self, acc_nr):
+        for x in Bank.proc_accounts:
+            if x.acc_nr == acc_nr:
+                print(x.name, x.acc_nr, x.acc_type, x.balance)
+                break
         else:
-            print(f'No customer {pnr} exists')
+            print(f'Did not find account: {acc_nr}. Did you type it correctly?')
 
-    def deposit(self, pnr, account_nr):
+    def deposit(self, pnr, acc_nr):
         # Gör en insättning på kontot, returnerar True om det gick bra annars False.
         pass
 
@@ -80,15 +74,14 @@ class Bank:
         pass
 
     def close_account(self, acc_nr):
-        if any(acc_nr in inner_list for inner_list in customers):
-            for sub_list in customers:
+        if any(acc_nr in inner_list for inner_list in Bank.customers):
+            for sub_list in Bank.customers:
                 if acc_nr in sub_list:
-                    indx = customers.index(sub_list)
-                    print(f'Account {customers[indx][3]} was terminated and check with balance was sent. Balance left on account: {customers[indx][5]}')
-                    del customers[indx][3:]
+                    indx = Bank.customers.index(sub_list)
+                    print(f'Account {Bank.customers[indx][3]} was terminated and check with balance was sent. Balance left on account: {Bank.customers[indx][5]}')
+                    del Bank.customers[indx][3:]
         else:
             print(f'No customer with account: {acc_nr} exists')
 
 b = Bank()
 b._load()
-b.get_customers()

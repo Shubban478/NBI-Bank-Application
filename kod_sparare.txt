@@ -15,3 +15,14 @@
     def get_customers(self):
         for customer in Bank.customers:
             print(f'{customer[1:3]}')
+
+
+    def add_customer(self, pnr, name):
+        self.pnr = pnr
+        self.name = name
+
+        if any(self.pnr in cust for cust in customers):
+            print(f'{self.pnr} is already a customer. Did you type in the wrong social security number?')
+        else:
+            customers.append([self.name, self.pnr])
+            print(f'{self.name}  was added to customers')
