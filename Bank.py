@@ -1,77 +1,94 @@
-from Account import Account as a
+import Customer as ctr
+
+customers = []
 
 class Bank:
 
-    customers = []
-
     def __init__(self):
-        self.pnr = ''
-        self.name = ''
+        self.name = None
+        self.pnr = None
 
     def _load(self):
         with open('Customers.txt') as customer:
             for line in customer:
-                Bank.customers.append(line.strip().split(':'))
+                customers.append(line.strip().split(':'))
+
+    def process_customer(self, data):
+        proc_customers = []
+        for student in customers:
+            proc_customers.append(ctr.Customer(student[0], student[1], student[2]))
+        return proc_customers
 
     def get_customers(self):
-        for customer in Bank.customers:
-            print(customer)
+        for s in b.process_customer(customers):
+            print(s.name, s.pnr)
 
     def add_customer(self, pnr, name):
         self.pnr = pnr
         self.name = name
 
-        if any(self.pnr in cust for cust in Bank.customers):
+        if any(self.pnr in cust for cust in customers):
             print(f'{self.pnr} is already a customer. Did you type in the wrong social security number?')
         else:
-            Bank.customers.append([self.name, self.pnr])
+            customers.append([self.name, self.pnr])
             print(f'{self.name}  was added to customers')
 
     def change_customer_name(self, pnr):
-        if any(pnr in inner_list for inner_list in Bank.customers):
-            for sub_list in Bank.customers:
+        if any(pnr in inner_list for inner_list in customers):
+            for sub_list in customers:
                 if pnr in sub_list:
-                    indx = Bank.customers.index(sub_list)
-                    Bank.customers[indx][1] = input('Set new name: ')
+                    indx = customers.index(sub_list)
+                    customers[indx][1] = input('Set new name: ')
 
     def get_customer(self, name):
-        if any(name in inner_list for inner_list in Bank.customers):
-            for sub_list in Bank.customers:
+        if any(name in inner_list for inner_list in customers):
+            for sub_list in customers:
                 if name in sub_list:
-                    indx = Bank.customers.index(sub_list)
-                    print(Bank.customers[indx])
+                    indx = customers.index(sub_list)
+                    print(customers[indx])
         else:
             print(f'No customer {name} exists')
 
     def remove_customer(self, pnr):
-        if any(pnr in inner_list for inner_list in Bank.customers):
-            for sub_list in Bank.customers:
+        if any(pnr in inner_list for inner_list in customers):
+            for sub_list in customers:
                 if pnr in sub_list:
-                    indx = Bank.customers.index(sub_list)
-                    print(f'{Bank.customers[indx]} was removed from customers.')
-                    del Bank.customers[indx]
+                    indx = customers.index(sub_list)
+                    print(f'{customers[indx]} was removed from customers.')
+                    del customers[indx]
         else:
             print(f'No customer {pnr} exists')
         # Tar bort kund med personnumret som angetts ur banken, alla kundens eventuella konton
         # tas också bort och resultatet returneras. Listan som returneras ska innehålla information
         # om alla konton som togs bort, saldot som kunden får tillbaka.
 
-    def get_account(self, pnr, account_id):
-        # Returnerar Textuell presentation av kontot med kontonummer som tillhör
-        # kunden (kontonummer, saldo, kontotyp).
-        pass
+    def get_account(self, pnr):
+        if any(pnr in inner_list for inner_list in customers):
+            for sub_list in customers:
+                if pnr in sub_list:
+                    indx = customers.index(sub_list)
+                    print(customers[indx][3:])
+        else:
+            print(f'No customer {pnr} exists')
 
-    def deposit(self, amount):
-        a.saldo = a.saldo + int(amount)
-        print(a.saldo)
+    def deposit(self, pnr, account_nr):
         # Gör en insättning på kontot, returnerar True om det gick bra annars False.
         pass
 
-    def withdraw(self, amount):
-        a.saldo = a.saldo - int(amount)
-        print(a.saldo)
+    def withdraw(self, pnr, account_nr, amount):
         # Gör ett uttag på kontot, returnerar True om det gick bra annars False.
-
-    def close_account(self, pnr, account_id):
-        # Avslutar ett konto. Textuell presentation av kontots saldo ska genereras och returneras.
         pass
+
+    def close_account(self, acc_nr):
+        if any(acc_nr in inner_list for inner_list in customers):
+            for sub_list in customers:
+                if acc_nr in sub_list:
+                    indx = customers.index(sub_list)
+                    print(f'Account {customers[indx][3]} was terminated and check with balance was sent. Balance left on account: {customers[indx][5]}')
+                    del customers[indx][3:]
+        else:
+            print(f'No customer with account: {acc_nr} exists')
+
+b = Bank()
+b._load()
+b.get_customers()

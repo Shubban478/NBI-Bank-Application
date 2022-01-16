@@ -1,0 +1,17 @@
+    def _load(self, data):
+        with open('Customers.txt') as customer:
+            for line in customer:
+                Bank.customers.append(ctr.Customer(line[1], line[2]))  #(line.strip().split(':'))
+            return Bank.customers
+
+
+    def Compiler(self, data):
+        customer = []
+        for cust in Bank.customers:
+            customer.append(ctr.Customer(cust[1], cust[2]))
+        return customer
+
+
+    def get_customers(self):
+        for customer in Bank.customers:
+            print(f'{customer[1:3]}')

@@ -1,4 +1,4 @@
-111:Sebastian:19930525:1001:Debit:500
-112:Vilhelm:19990205:1002:Debit:0
-113:Angela:19820119:1003:Debit:2300
-114:Kevin:19920424:1004:Debit:95200
+1000:Sebastian:19930525:1001:Debit Account:500.0
+2000:Vilhelm:19990205:2001:Debit Account:0.0
+3000:Fredrik:19820119:3001:Debit Account:2300.0
+4000:Zlatan:19920424:4001:Debit Account:95200.0
