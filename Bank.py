@@ -70,13 +70,28 @@ class Bank:
         else:
             print(f'Did not find account: {acc_nr}. Did you type it correctly?')
 
-    def deposit(self, pnr, acc_nr):
-        # Gör en insättning på kontot, returnerar True om det gick bra annars False.
-        pass
+    def deposit(self, pnr, acc_nr, amount):
+        for x in Bank.proc_accounts:
+            if x.pnr == pnr and x.acc_nr == acc_nr:
+                new_balance = float(x.balance) + float(amount)
+                x.balance = new_balance
+                print(f'Deposit successful. New balance is: {x.balance}')
+                break
+        else:
+            print(f'Did not find account: {acc_nr}. Did you type it correctly?')
 
-    def withdraw(self, pnr, account_nr, amount):
-        # Gör ett uttag på kontot, returnerar True om det gick bra annars False.
-        pass
+    def withdraw(self, pnr, acc_nr, amount):
+        for x in Bank.proc_accounts:
+            if x.pnr == pnr and x.acc_nr == acc_nr:
+                new_balance = float(x.balance) - float(amount)
+                if new_balance < 0:
+                    print(f'Withdrawal denied. Not enough balance on account {acc_nr}.')
+                else:
+                    x.balance = new_balance
+                    print(f'Withdrawal successful. New balance is: {x.balance}')
+                break
+        else:
+            print(f'Did not find account: {acc_nr}. Did you type it correctly?')
 
     def close_account(self, acc_nr):
         for x in Bank.proc_accounts:
@@ -86,7 +101,3 @@ class Bank:
                 break
         else:
             print(f'Did not find account {acc_nr}. Did you type it correctly?')
-
-b = Bank()
-b._load()
-b.get_customers()
