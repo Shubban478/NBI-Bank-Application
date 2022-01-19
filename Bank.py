@@ -6,15 +6,15 @@ class Bank:
 
     proc_customers = []
     accounts = []
-    customers = []
 
     def _load(self):
+        customers = []
         with open('Customers.txt') as customer:
             for line in customer:
-                Bank.customers.append(line.strip().split(':'))
-            for line in Bank.customers:
+                customers.append(line.strip().split(':'))
+            for line in customers:
                 Bank.proc_customers.append(ctr.Customer(line[0], line[1], line[2]))
-                Bank.accounts.append(act.Account(line[1], line[2], line[3], line[4], line[5]))
+                Bank.accounts.append(act.Account(line[1], line[2], line[3], line[4]))
 
     def get_customers(self):
         for c in Bank.proc_customers:
@@ -28,31 +28,40 @@ class Bank:
             else:
                 gen_id = len(Bank.proc_customers) + 1000
                 Bank.proc_customers.append(ctr.Customer(gen_id, name, pnr))
+                print(f'{gen_id} {name} {pnr} was added to customers. Welcome to NBI Bank!')
                 break
 
     def get_customer(self, pnr):
         for x in Bank.proc_customers:
-            if x.pnr == pnr:
+            if pnr == "":
+                print("Invalid input")
+                break
+            elif x.pnr == pnr:
                 print(f'{x.cust_id}, {x.name}, {x.pnr}')
                 break
-            else:
-                print(f'Did not find social security number {pnr}. Did you type it correctly?')
+        else:
+            print(f'Did not find social security number {pnr}. Did you type it correctly?')
 
         for x in Bank.accounts:
-            if x.pnr == pnr:
+            if pnr == "":
+                break
+            elif x.pnr == pnr:
                 print(f'Found accounts for {x.name}: {x.acc_nr}, {x.acc_type}, {x.balance}')
                 break
-            else:
-                print(f'No accounts found for {pnr}')
+        else:
+            print(f'No accounts found for {pnr}')
 
-    def change_customer_name(self, name, pnr):
+    def change_customer_name(self, pnr, name):
         for x in Bank.proc_customers:
-            if x.pnr == pnr:
+            if pnr == "":
+                print("Invalid input")
+                break
+            elif x.pnr == pnr:
                 x.name = name
+                print(f'Name of {x.pnr} was changed to: {name}')
                 break
-            else:
-                print(f'{pnr} is not a customer. Did you mean to change name of someone else?')
-                break
+        else:
+            print(f'{pnr} is not a customer. Did you mean to change name of someone else?')
 
     def remove_customer(self, pnr):
         for x in Bank.proc_customers:
@@ -70,13 +79,13 @@ class Bank:
                 break
 
     # TODO
-    def add_account(self, pnr):
+    def add_account(self):
         pass
 
     def get_account(self, acc_nr):
         for x in Bank.accounts:
-            if x.acc_nr == int(acc_nr):
-                print(x.name, x.pnr, x.acc_nr, x.acc_type, x.balance)
+            if x.acc_nr == acc_nr:
+                print(f'Owner: {x.name}, {x.pnr}\nAccount: {x.acc_nr}, {x.acc_type}, {x.balance}')
                 break
         else:
             print(f'Did not find account: {acc_nr}. Did you type it correctly?')
@@ -84,7 +93,7 @@ class Bank:
     def deposit(self, pnr, acc_nr, amount):
         for x in Bank.accounts:
             if x.pnr == pnr and x.acc_nr == acc_nr:
-                new_balance = x.balance + amount
+                new_balance = x.balance + float(amount)
                 x.balance = new_balance
                 print(f'Deposit successful. New balance is: {x.balance}')
                 break
@@ -94,9 +103,9 @@ class Bank:
     def withdraw(self, pnr, acc_nr, amount):
         for x in Bank.accounts:
             if x.pnr == pnr and x.acc_nr == acc_nr:
-                new_balance = x.balance - amount
+                new_balance = x.balance - float(amount)
                 if new_balance < 0:
-                    print(f'Withdrawal denied. Not enough balance on account {acc_nr}.')
+                    print(f'Withdrawal denied. Not enough balance on account {acc_nr}.\nCurrent balance is: {x.balance}')
                 else:
                     x.balance = new_balance
                     print(f'Withdrawal successful. New balance is: {x.balance}')
