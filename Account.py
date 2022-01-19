@@ -1,6 +1,6 @@
 class Account:
 
-    def __init__(self, name, pnr, acc_nr, balance, acc_type = "Debit Account"):
+    def __init__(self, name, pnr, acc_nr, balance = 0, acc_type = "Debit Account"):
         self.name = name
         self.pnr = pnr
         self.acc_nr = acc_nr

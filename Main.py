@@ -2,6 +2,7 @@ from Bank import *
 
 if __name__ == '__main__':
     b = Bank()
+    print("Welcome to NBI Bank Application!")
     ans = True
     while ans:
         print("""
@@ -10,11 +11,12 @@ if __name__ == '__main__':
         3. Customer search
         4. Change name of customer
         5. Remove customer
-        6. Account search
-        7. Deposit
-        8. Withdraw
-        9. Close account
-        10. Exit application
+        6. Open new account
+        7. Account search
+        8. Deposit
+        9. Withdraw
+        10. Close account
+        11. Exit application
         """)
         ans = input("What would you like to do? ")
         if ans == "1":
@@ -28,14 +30,16 @@ if __name__ == '__main__':
         elif ans == "5":
             b.remove_customer(input("Enter social security number of the customer you want to delete: "))
         elif ans == "6":
-            b.get_account(input("Enter account number of the account you wish to see information about: "))
+            b.add_account(input("Enter customers social security number: "))
         elif ans == "7":
-            b.deposit(input("Enter a social security number: "), input("Enter customers account number: "), input("How much do you want to deposit? "))
+            b.get_account(input("Enter account number of the account you wish to see information about: "))
         elif ans == "8":
-            b.withdraw(input("Enter a social security number: "), input("Enter customers account number: "), input("How much do you want to withdraw? "))
+            b.deposit(input("Enter a social security number: "), input("Enter customers account number: "), input("How much do you want to deposit? "))
         elif ans == "9":
-            b.close_account(input("Enter customers account number that will be deleted: "))
+            b.withdraw(input("Enter a social security number: "), input("Enter customers account number: "), input("How much do you want to withdraw? "))
         elif ans == "10":
+            b.close_account(input("Enter customers account number that will be deleted: "))
+        elif ans == "11":
             print("Thanks for using the NBI Bank Application. See you soon!")
             quit()
         else:
