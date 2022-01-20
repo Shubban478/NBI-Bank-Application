@@ -21,27 +21,101 @@ if __name__ == '__main__':
         ans = input("What would you like to do? ")
         if ans == "1":
             b.get_customers()
+
         elif ans == "2":
-            b.add_customer(input("Enter name of new customer: "), input("Enter social security number of new customer: "))
+            name = input("Enter name of new customer: ")
+            while True:
+                try:
+                    pnr = int(input("Enter social security number of new customer: "))
+                    b.add_customer(name, pnr)
+                    break
+                except:
+                    print("Please use numbers to specify social security number")
+
         elif ans == "3":
-            b.get_customer(input("Enter social security number of customer: "))
+            while True:
+                try:
+                    pnr = int(input("Enter social security number of the customer you want to search for: "))
+                    b.get_customer(pnr)
+                    break
+                except:
+                    print("Please use numbers to specify social security number")
+
         elif ans == "4":
-            b.change_customer_name(input("Enter social security number of the customer you want to change: "), input("Enter the new name of the customer: "))
+            while True:
+                try:
+                    pnr = int(input("Enter social security number of the customer you want to change: "))
+                    break
+                except:
+                    print("Please use numbers to specify social security number")
+                
+            name = input("Enter the new name of the customer: ")
+            b.change_customer_name(pnr, name)
+
         elif ans == "5":
-            b.remove_customer(input("Enter social security number of the customer you want to delete: "))
+            while True:
+                try:
+                    pnr = int(input("Enter social security number of the customer you want to delete: "))
+                    b.remove_customer(pnr)
+                    break
+                except:
+                    print("Please use numbers to specify social security number")
+
         elif ans == "6":
-            b.add_account(input("Enter customers social security number: "))
+            while True:
+                try:
+                    pnr = int(input("Enter customers social security number: "))
+                    b.add_account(pnr)
+                    break
+                except:
+                    print("Please use numbers to specify social security number")
+
         elif ans == "7":
-            b.get_account(input("Enter account number of the account you wish to see information about: "))
+            while True:
+                try:
+                    accnr = int(input("Enter account number of the account you wish to see information about: "))
+                    b.get_account(accnr)
+                    break
+                except:
+                    print("Please use numbers to specify account number")
+
         elif ans == "8":
-            b.deposit(input("Enter a social security number: "), input("Enter customers account number: "), input("How much do you want to deposit? "))
+            while True:
+                try:
+                    pnr = int(input("Enter a social security number: "))
+                    accnr = int(input("Enter customers account number: "))
+                    amount = int(input("How much do you want to deposit? "))
+                    break
+                except:
+                    print("Please use numbers for all fields")
+
+            b.deposit(pnr, accnr, amount)
+
         elif ans == "9":
-            b.withdraw(input("Enter a social security number: "), input("Enter customers account number: "), input("How much do you want to withdraw? "))
+            while True:
+                try:
+                    pnr = int(input("Enter a social security number: "))
+                    accnr = int(input("Enter customers account number: "))
+                    amount = int(input("How much do you want to withdraw? "))
+                    break
+                except:
+                    print("Please use numbers for all fields")
+
+            b.withdraw(pnr, accnr, amount)
+
         elif ans == "10":
-            b.close_account(input("Enter customers account number that will be deleted: "))
+            while True:
+                try:
+                    accnr = int(input("Enter customers account number that will be deleted: "))
+                    b.close_account(accnr)
+                    break
+                except:
+                    print("Please use numbers to specify account number")
+
         elif ans == "11":
             print("Thanks for using the NBI Bank Application. See you soon!")
             quit()
+
         else:
             print("Invalid input")
             ans = True
