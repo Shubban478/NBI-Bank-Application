@@ -60,7 +60,6 @@ class Bank:
         for x in Bank.accounts:
             if x.pnr == pnr:
                 print(f'Found accounts for {x.name}: {x.acc_nr}, {x.acc_type}, {x.balance}')
-                break
 
     def change_customer_name(self, pnr, name):
         """Search for a customer by using the social security number and enter a new name of the customer. The name will be updated for that specific customer"""
