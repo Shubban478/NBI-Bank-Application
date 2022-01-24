@@ -1,24 +1,29 @@
 import Customer as ctr
 import Account as act
+import Transactions as tcs
+import datetime as dt
 
 
 class Bank:
 
     proc_customers = []
     accounts = []
+    transactions = []
     custid_count = 1000
     custacc_count = 2000
+    transaction_id = 1
 
     def _load(self):
-        """Load existing customers and accounts from textfile"""
+        """Load existing customers and accounts from text file"""
 
         customers = []
+
         with open('Customers.txt') as customer:
             for line in customer:
                 customers.append(line.strip().split(':'))
             for line in customers:
                 Bank.proc_customers.append(ctr.Customer(line[0], line[1], line[2]))
-                Bank.accounts.append(act.Account(line[1], line[2], line[3], line[4]))
+                Bank.accounts.append(act.Account(line[0], line[1], line[2], line[3], line[4]))
                 Bank.custid_count += 1
                 Bank.custacc_count += 1
 
@@ -45,7 +50,7 @@ class Bank:
                 break
 
     def get_customer(self, pnr):
-        """Search for a customer by using the customers social security number. Prints customer if registered and all registered accounts"""
+        """Search for a customer by using the customers social security number"""
 
         for x in Bank.proc_customers:
             if x.pnr == pnr:
@@ -62,7 +67,7 @@ class Bank:
                 print(f'Found accounts for {x.name}: {x.acc_nr}, {x.acc_type}, {x.balance}')
 
     def change_customer_name(self, pnr, name):
-        """Search for a customer by using the social security number and enter a new name of the customer. The name will be updated for that specific customer"""
+        """Search for a customer by using the social security number and enter a new name of the customer"""
 
         for x in Bank.proc_customers:
             if pnr == "":
@@ -76,7 +81,7 @@ class Bank:
             print(f'{pnr} is not a customer. Did you mean to change name of someone else?')
 
     def remove_customer(self, pnr):
-        """Search for a customer by using the social security number and removes that customer. If any accounts are found, those are terminated and information about them will be printed"""
+        """Search for a customer by using the social security number and removes that customer"""
 
         for x in Bank.proc_customers:
             if x.pnr == pnr:
@@ -94,11 +99,11 @@ class Bank:
                 break
 
     def add_account(self, pnr):
-        """Create a new account for the social security number that is entered. Information about the new account will be printed"""
+        """Create a new account for the social security number that is entered. Account information will be printed"""
 
         for x in Bank.proc_customers:
             if x.pnr == pnr:
-                Bank.accounts.append(act.Account(x.name, pnr, Bank.custacc_count))
+                Bank.accounts.append(act.Account(Bank.custid_count, x.name, pnr, Bank.custacc_count))
                 print(f'Account {Bank.custacc_count} for {x.name} {pnr} was successfully created')
                 Bank.custacc_count += 1
                 break
@@ -116,19 +121,22 @@ class Bank:
             print(f'Did not find account: {acc_nr}. Did you type it correctly?')
 
     def deposit(self, pnr, acc_nr, amount):
-        """Make a deposit to a customers account by using social security number, account number and the amount to be deposited"""
+        """Make a deposit to a customers account by using social security number and account number"""
 
         for x in Bank.accounts:
             if x.pnr == pnr and x.acc_nr == acc_nr:
                 new_balance = x.balance + float(amount)
                 x.balance = new_balance
+                date = dt.datetime.now()
                 print(f'Deposit successful. New balance is: {x.balance}')
+                Bank.transactions.append(tcs.Transactions(pnr, Bank.transaction_id, x.cust_id ,x.acc_nr, date.strftime("%d/%m/%Y %H:%M:%S"), amount))
+                Bank.transaction_id += 1
                 break
         else:
             print(f'Did not find account: {acc_nr}. Did you type it correctly?')
 
     def withdraw(self, pnr, acc_nr, amount):
-        """Try to withdraw from a customers account by using social security number, account number and the amount to be withdrawn"""
+        """Try to withdraw from a customers account by using social security number and account number"""
 
         for x in Bank.accounts:
             if x.pnr == pnr and x.acc_nr == acc_nr:
@@ -137,13 +145,16 @@ class Bank:
                     print(f'Withdrawal denied. Not enough balance on account {acc_nr}.\nCurrent balance is: {x.balance}')
                 else:
                     x.balance = new_balance
+                    date = dt.datetime.now()
                     print(f'Withdrawal successful. New balance is: {x.balance}')
+                    Bank.transactions.append(tcs.Transactions(pnr, Bank.transaction_id, x.cust_id, x.acc_nr, date.strftime("%d/%m/%Y %H:%M:%S"), str(f'-{amount}')))
+                    Bank.transaction_id += 1
                 break
         else:
             print(f'Did not find account: {acc_nr}. Did you type it correctly?')
 
     def close_account(self, acc_nr):
-        """Closes the account with the specified account number and prints information about the account that was terminated"""
+        """Closes the account with the specified account number and prints information about the account"""
 
         for x in Bank.accounts:
             if x.acc_nr == acc_nr:
@@ -152,6 +163,19 @@ class Bank:
                 break
         else:
             print(f'Did not find account {acc_nr}. Did you type it correctly?')
+
+    def get_all_transactions_by_pnr_acc_nr(self, pnr, acc_nr):
+        """Get all transactions with the specified social security number and account number"""
+
+        for x in Bank.transactions:
+            if x.pnr == pnr and x.acc_nr == acc_nr:
+                print(f'ID: {x.trans_id}, Customer ID: {x.cust_id}, Account number: {x.acc_nr}, Date: {x.date}, Amount: {x.amount}')
+            else:
+                print("No transactions found with credentials.")
+        if not Bank.transactions:
+            print("There are no transactions yet.")
+
+
 
 b = Bank()
 b._load()

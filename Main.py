@@ -16,8 +16,9 @@ if __name__ == '__main__':
         7. Account search
         8. Deposit
         9. Withdraw
-        10. Close account
-        11. Exit application
+        10. All transactions on account
+        11. Close account
+        12. Exit application
         
         If you wish to return here, press CTRL + C to get you back.
         """)
@@ -101,8 +102,8 @@ if __name__ == '__main__':
         elif ans == "7":
             while True:
                 try:
-                    accnr = int(input("Enter account number of the account you wish to see information about: "))
-                    b.get_account(accnr)
+                    acc_nr = int(input("Enter account number of the account you wish to see information about: "))
+                    b.get_account(acc_nr)
                     input("Press enter to continue")
                     break
                 except ValueError:
@@ -116,9 +117,9 @@ if __name__ == '__main__':
             while True:
                 try:
                     pnr = int(input("Enter a social security number: "))
-                    accnr = int(input("Enter customers account number: "))
-                    amount = int(input("How much do you want to deposit? "))
-                    b.deposit(pnr, accnr, amount)
+                    acc_nr = int(input("Enter customers account number: "))
+                    amount = float(input("How much do you want to deposit? "))
+                    b.deposit(pnr, acc_nr, amount)
                     input("Press enter to continue")
                     break
                 except ValueError:
@@ -132,9 +133,38 @@ if __name__ == '__main__':
             while True:
                 try:
                     pnr = int(input("Enter a social security number: "))
-                    accnr = int(input("Enter customers account number: "))
+                    acc_nr = int(input("Enter customers account number: "))
                     amount = int(input("How much do you want to withdraw? "))
-                    b.withdraw(pnr, accnr, amount)
+                    b.withdraw(pnr, acc_nr, amount)
+                    break
+                except ValueError:
+                    print("Please use numbers for all fields")
+                except KeyboardInterrupt:
+                    print("\nReturning to menu")
+                    input("Press enter to continue")
+                    break
+            input("Press enter to continue")
+
+        elif ans == "10":
+            while True:
+                try:
+                    pnr = int(input("Enter customers social security number: "))
+                    acc_nr = int(input("Enter customers account number: "))
+                    b.get_all_transactions_by_pnr_acc_nr(pnr, acc_nr)
+                    break
+                except ValueError:
+                    print("Please use numbers to specify account number")
+                except KeyboardInterrupt:
+                    print("\nReturning to menu")
+                    input("Press enter to continue")
+                    break
+            input("Press enter to continue")
+
+        elif ans == "11":
+            while True:
+                try:
+                    acc_nr = int(input("Enter customers account number that will be deleted: "))
+                    b.close_account(acc_nr)
                     input("Press enter to continue")
                     break
                 except ValueError:
@@ -144,24 +174,11 @@ if __name__ == '__main__':
                     input("Press enter to continue")
                     break
 
-        elif ans == "10":
-            while True:
-                try:
-                    accnr = int(input("Enter customers account number that will be deleted: "))
-                    b.close_account(accnr)
-                    input("Press enter to continue")
-                    break
-                except ValueError:
-                    print("Please use numbers to specify account number")
-                except KeyboardInterrupt:
-                    print("\nReturning to menu")
-                    input("Press enter to continue")
-                    break
-
-        elif ans == "11":
+        elif ans == "12":
             print("Thanks for using the NBI Bank Application. See you soon!")
             quit()
 
         else:
-            print("Invalid input")
+            print("")
             ans = True
+
