@@ -1,12 +1,22 @@
+import os
 from Bank import *
+
+
+def clearConsole():
+    command = 'clear'
+    if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
+        command = 'cls'
+    os.system(command)
 
 if __name__ == '__main__':
     b = Bank()
-    print("Welcome to NBI Bank Application!")
-    ans = True
+    clearConsole()
 
+    ans = True
     while ans:
         print("""
+NBI Bank Application
+        
         1. Show all customers
         2. New customer
         3. Customer search
@@ -26,6 +36,7 @@ if __name__ == '__main__':
         if ans == "1":
             b.get_customers()
             input("Press enter to continue")
+            clearConsole()
 
         elif ans == "2":
             while True:
@@ -34,12 +45,14 @@ if __name__ == '__main__':
                     pnr = int(input("Enter social security number of new customer: "))
                     b.add_customer(name, pnr)
                     input("Press enter to continue")
+                    clearConsole()
                     break
                 except ValueError:
                     print("Please use numbers to specify social security number")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
+                    clearConsole()
                     break
 
         elif ans == "3":
@@ -48,12 +61,14 @@ if __name__ == '__main__':
                     pnr = int(input("Enter social security number of the customer you want to search for: "))
                     b.get_customer(pnr)
                     input("Press enter to continue")
+                    clearConsole()
                     break
                 except ValueError:
                     print("Please use numbers to specify social security number")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
+                    clearConsole()
                     break
 
         elif ans == "4":
@@ -63,12 +78,14 @@ if __name__ == '__main__':
                     name = input("Enter the new name of the customer: ")
                     b.change_customer_name(pnr, name)
                     input("Press enter to continue")
+                    clearConsole()
                     break
                 except ValueError:
                     print("Please use numbers to specify social security number")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
+                    clearConsole()
                     break
 
         elif ans == "5":
@@ -77,12 +94,14 @@ if __name__ == '__main__':
                     pnr = int(input("Enter social security number of the customer you want to delete: "))
                     b.remove_customer(pnr)
                     input("Press enter to continue")
+                    clearConsole()
                     break
                 except ValueError:
                     print("Please use numbers to specify social security number")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
+                    clearConsole()
                     break
 
         elif ans == "6":
@@ -91,12 +110,14 @@ if __name__ == '__main__':
                     pnr = int(input("Enter customers social security number: "))
                     b.add_account(pnr)
                     input("Press enter to continue")
+                    clearConsole()
                     break
                 except ValueError:
                     print("Please use numbers to specify social security number")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
+                    clearConsole()
                     break
 
         elif ans == "7":
@@ -105,12 +126,14 @@ if __name__ == '__main__':
                     acc_nr = int(input("Enter account number of the account you wish to see information about: "))
                     b.get_account(acc_nr)
                     input("Press enter to continue")
+                    clearConsole()
                     break
                 except ValueError:
                     print("Please use numbers to specify account number")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
+                    clearConsole()
                     break
 
         elif ans == "8":
@@ -121,12 +144,14 @@ if __name__ == '__main__':
                     amount = float(input("How much do you want to deposit? "))
                     b.deposit(pnr, acc_nr, amount)
                     input("Press enter to continue")
+                    clearConsole()
                     break
                 except ValueError:
                     print("Please use numbers for all fields")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
+                    clearConsole()
                     break
 
         elif ans == "9":
@@ -134,16 +159,18 @@ if __name__ == '__main__':
                 try:
                     pnr = int(input("Enter a social security number: "))
                     acc_nr = int(input("Enter customers account number: "))
-                    amount = int(input("How much do you want to withdraw? "))
+                    amount = float(input("How much do you want to withdraw? "))
                     b.withdraw(pnr, acc_nr, amount)
+                    input("Press enter to continue")
+                    clearConsole()
                     break
                 except ValueError:
                     print("Please use numbers for all fields")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
+                    clearConsole()
                     break
-            input("Press enter to continue")
 
         elif ans == "10":
             while True:
@@ -151,14 +178,16 @@ if __name__ == '__main__':
                     pnr = int(input("Enter customers social security number: "))
                     acc_nr = int(input("Enter customers account number: "))
                     b.get_all_transactions_by_pnr_acc_nr(pnr, acc_nr)
+                    input("Press enter to continue")
+                    clearConsole()
                     break
                 except ValueError:
                     print("Please use numbers to specify account number")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
+                    clearConsole()
                     break
-            input("Press enter to continue")
 
         elif ans == "11":
             while True:
@@ -166,12 +195,14 @@ if __name__ == '__main__':
                     acc_nr = int(input("Enter customers account number that will be deleted: "))
                     b.close_account(acc_nr)
                     input("Press enter to continue")
+                    clearConsole()
                     break
                 except ValueError:
                     print("Please use numbers for all fields")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
+                    clearConsole()
                     break
 
         elif ans == "12":
@@ -179,6 +210,5 @@ if __name__ == '__main__':
             quit()
 
         else:
-            print("")
+            clearConsole()
             ans = True
-

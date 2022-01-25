@@ -41,7 +41,7 @@ class Bank:
 
         for x in Bank.proc_customers:
             if x.pnr == pnr:
-                print(f'{name} is already a customer. Did you mean to add someone else?')
+                print(f'{pnr} is already a customer. Did you mean to add someone else?')
                 break
             else:
                 Bank.proc_customers.append(ctr.Customer(Bank.custid_count, name, pnr))
@@ -64,7 +64,7 @@ class Bank:
 
         for x in Bank.accounts:
             if x.pnr == pnr:
-                print(f'Found accounts for {x.name}: {x.acc_nr}, {x.acc_type}, {x.balance}')
+                print(f'Found account for {x.name}: {x.acc_nr}, {x.acc_type}, {x.balance}')
 
     def change_customer_name(self, pnr, name):
         """Search for a customer by using the social security number and enter a new name of the customer"""
@@ -174,8 +174,6 @@ class Bank:
                 print("No transactions found with credentials.")
         if not Bank.transactions:
             print("There are no transactions yet.")
-
-
 
 b = Bank()
 b._load()

@@ -1,4 +1,4 @@
 1000:Sebastian:19930525:2000:500.0:Debit Account
-1001:Vilhelm:19990205:2001:0:Debit Account
+1001:Vilhelm:19990205:2001:0.0:Debit Account
 1002:Fredrik:19820119:2002:2300.0:Debit Account
-1003:Zlatan:19920424:2003:95200.0:Debit Account
+1003:Linnea:19920424:2003:95200.0:Debit Account
