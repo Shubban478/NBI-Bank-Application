@@ -13,7 +13,7 @@ class Bank:
     def _load(self):
         """Load existing customers and accounts from text file"""
         customers = []
-        with open('./Customers.txt') as customer:
+        with open('../Customers.txt') as customer:
             for line in customer:
                 customers.append(line.strip().split(':'))
             for line in customers:
