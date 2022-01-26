@@ -13,6 +13,9 @@ if __name__ == '__main__':
     b = Bank()
     clear_console()
 
+    pnr_limit_max = 20100000
+    pnr_limit_min = 19200000
+
     ans = True
     while ans:
         print("""
@@ -43,12 +46,15 @@ NBI Bank Application
                 try:
                     name = input("Enter name of new customer: ")
                     pnr = int(input("Enter social security number of new customer: "))
-                    b.add_customer(name, pnr)
-                    input("Press enter to continue")
-                    clear_console()
-                    break
+                    if pnr > pnr_limit_max or pnr < pnr_limit_min:
+                        raise ValueError
+                    else:
+                        b.add_customer(name, pnr)
+                        input("Press enter to continue")
+                        clear_console()
+                        break
                 except ValueError:
-                    print("Please use numbers to specify social security number")
+                    print("Please use a valid social security number YYYYMMDD")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
@@ -59,12 +65,15 @@ NBI Bank Application
             while True:
                 try:
                     pnr = int(input("Enter social security number of the customer you want to search for: "))
-                    b.get_customer(pnr)
-                    input("Press enter to continue")
-                    clear_console()
-                    break
+                    if pnr > pnr_limit_max or pnr < pnr_limit_min:
+                        raise ValueError
+                    else:
+                        b.get_customer(pnr)
+                        input("Press enter to continue")
+                        clear_console()
+                        break
                 except ValueError:
-                    print("Please use numbers to specify social security number")
+                    print("Please use a valid social security number YYYYMMDD")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
@@ -75,13 +84,16 @@ NBI Bank Application
             while True:
                 try:
                     pnr = int(input("Enter social security number of the customer you want to change: "))
-                    name = input("Enter the new name of the customer: ")
-                    b.change_customer_name(pnr, name)
-                    input("Press enter to continue")
-                    clear_console()
-                    break
+                    if pnr > pnr_limit_max or pnr < pnr_limit_min:
+                        raise ValueError
+                    else:
+                        name = input("Enter the new name of the customer: ")
+                        b.change_customer_name(pnr, name)
+                        input("Press enter to continue")
+                        clear_console()
+                        break
                 except ValueError:
-                    print("Please use numbers to specify social security number")
+                    print("Please use a valid social security number YYYYMMDD")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
@@ -92,12 +104,15 @@ NBI Bank Application
             while True:
                 try:
                     pnr = int(input("Enter social security number of the customer you want to delete: "))
-                    b.remove_customer(pnr)
-                    input("Press enter to continue")
-                    clear_console()
-                    break
+                    if pnr > pnr_limit_max or pnr < pnr_limit_min:
+                        raise ValueError
+                    else:
+                        b.remove_customer(pnr)
+                        input("Press enter to continue")
+                        clear_console()
+                        break
                 except ValueError:
-                    print("Please use numbers to specify social security number")
+                    print("Please use a valid social security number YYYYMMDD")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
@@ -108,12 +123,15 @@ NBI Bank Application
             while True:
                 try:
                     pnr = int(input("Enter customers social security number: "))
-                    b.add_account(pnr)
-                    input("Press enter to continue")
-                    clear_console()
-                    break
+                    if pnr > pnr_limit_max or pnr < pnr_limit_min:
+                        raise ValueError
+                    else:
+                        b.add_account(pnr)
+                        input("Press enter to continue")
+                        clear_console()
+                        break
                 except ValueError:
-                    print("Please use numbers to specify social security number")
+                    print("Please use a valid social security number YYYYMMDD")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
@@ -140,14 +158,17 @@ NBI Bank Application
             while True:
                 try:
                     pnr = int(input("Enter a social security number: "))
-                    acc_nr = int(input("Enter customers account number: "))
-                    amount = float(input("How much do you want to deposit? "))
-                    b.deposit(pnr, acc_nr, amount)
-                    input("Press enter to continue")
-                    clear_console()
-                    break
+                    if pnr > pnr_limit_max or pnr < pnr_limit_min:
+                        raise ValueError
+                    else:
+                        acc_nr = int(input("Enter customers account number: "))
+                        amount = float(input("How much do you want to deposit? "))
+                        b.deposit(pnr, acc_nr, amount)
+                        input("Press enter to continue")
+                        clear_console()
+                        break
                 except ValueError:
-                    print("Please use numbers for all fields")
+                    print("Please use numbers for all fields and a valid social security number")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
@@ -158,14 +179,17 @@ NBI Bank Application
             while True:
                 try:
                     pnr = int(input("Enter a social security number: "))
-                    acc_nr = int(input("Enter customers account number: "))
-                    amount = float(input("How much do you want to withdraw? "))
-                    b.withdraw(pnr, acc_nr, amount)
-                    input("Press enter to continue")
-                    clear_console()
-                    break
+                    if pnr > pnr_limit_max or pnr < pnr_limit_min:
+                        raise ValueError
+                    else:
+                        acc_nr = int(input("Enter customers account number: "))
+                        amount = float(input("How much do you want to withdraw? "))
+                        b.withdraw(pnr, acc_nr, amount)
+                        input("Press enter to continue")
+                        clear_console()
+                        break
                 except ValueError:
-                    print("Please use numbers for all fields")
+                    print("Please use numbers for all fields and a valid social security number")
                 except KeyboardInterrupt:
                     print("\nReturning to menu")
                     input("Press enter to continue")
