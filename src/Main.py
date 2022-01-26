@@ -5,7 +5,7 @@ from Bank import *
 def clear_console():
     """Clears screen from the previous prints and prompts"""
     command = 'clear'
-    if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
+    if os.name in ('nt', 'dos'):
         command = 'cls'
     os.system(command)
 
