@@ -48,11 +48,10 @@ NBI Bank Application
                     pnr = int(input("Enter social security number of new customer: "))
                     if pnr > pnr_limit_max or pnr < pnr_limit_min:
                         raise ValueError
-                    else:
-                        b.add_customer(name, pnr)
-                        input("Press enter to continue")
-                        clear_console()
-                        break
+                    b.add_customer(name, pnr)
+                    input("Press enter to continue")
+                    clear_console()
+                    break
                 except ValueError:
                     print("Please use a valid social security number YYYYMMDD")
                 except KeyboardInterrupt:
@@ -67,11 +66,10 @@ NBI Bank Application
                     pnr = int(input("Enter social security number of the customer you want to search for: "))
                     if pnr > pnr_limit_max or pnr < pnr_limit_min:
                         raise ValueError
-                    else:
-                        b.get_customer(pnr)
-                        input("Press enter to continue")
-                        clear_console()
-                        break
+                    b.get_customer(pnr)
+                    input("Press enter to continue")
+                    clear_console()
+                    break
                 except ValueError:
                     print("Please use a valid social security number YYYYMMDD")
                 except KeyboardInterrupt:
@@ -86,12 +84,11 @@ NBI Bank Application
                     pnr = int(input("Enter social security number of the customer you want to change: "))
                     if pnr > pnr_limit_max or pnr < pnr_limit_min:
                         raise ValueError
-                    else:
-                        name = input("Enter the new name of the customer: ")
-                        b.change_customer_name(pnr, name)
-                        input("Press enter to continue")
-                        clear_console()
-                        break
+                    name = input("Enter the new name of the customer: ")
+                    b.change_customer_name(pnr, name)
+                    input("Press enter to continue")
+                    clear_console()
+                    break
                 except ValueError:
                     print("Please use a valid social security number YYYYMMDD")
                 except KeyboardInterrupt:
@@ -106,11 +103,10 @@ NBI Bank Application
                     pnr = int(input("Enter social security number of the customer you want to delete: "))
                     if pnr > pnr_limit_max or pnr < pnr_limit_min:
                         raise ValueError
-                    else:
-                        b.remove_customer(pnr)
-                        input("Press enter to continue")
-                        clear_console()
-                        break
+                    b.remove_customer(pnr)
+                    input("Press enter to continue")
+                    clear_console()
+                    break
                 except ValueError:
                     print("Please use a valid social security number YYYYMMDD")
                 except KeyboardInterrupt:
@@ -125,11 +121,10 @@ NBI Bank Application
                     pnr = int(input("Enter customers social security number: "))
                     if pnr > pnr_limit_max or pnr < pnr_limit_min:
                         raise ValueError
-                    else:
-                        b.add_account(pnr)
-                        input("Press enter to continue")
-                        clear_console()
-                        break
+                    b.add_account(pnr)
+                    input("Press enter to continue")
+                    clear_console()
+                    break
                 except ValueError:
                     print("Please use a valid social security number YYYYMMDD")
                 except KeyboardInterrupt:
@@ -160,13 +155,12 @@ NBI Bank Application
                     pnr = int(input("Enter a social security number: "))
                     if pnr > pnr_limit_max or pnr < pnr_limit_min:
                         raise ValueError
-                    else:
-                        acc_nr = int(input("Enter customers account number: "))
-                        amount = float(input("How much do you want to deposit? "))
-                        b.deposit(pnr, acc_nr, amount)
-                        input("Press enter to continue")
-                        clear_console()
-                        break
+                    acc_nr = int(input("Enter customers account number: "))
+                    amount = float(input("How much do you want to deposit? "))
+                    b.deposit(pnr, acc_nr, amount)
+                    input("Press enter to continue")
+                    clear_console()
+                    break
                 except ValueError:
                     print("Please use numbers for all fields and a valid social security number")
                 except KeyboardInterrupt:
@@ -181,13 +175,12 @@ NBI Bank Application
                     pnr = int(input("Enter a social security number: "))
                     if pnr > pnr_limit_max or pnr < pnr_limit_min:
                         raise ValueError
-                    else:
-                        acc_nr = int(input("Enter customers account number: "))
-                        amount = float(input("How much do you want to withdraw? "))
-                        b.withdraw(pnr, acc_nr, amount)
-                        input("Press enter to continue")
-                        clear_console()
-                        break
+                    acc_nr = int(input("Enter customers account number: "))
+                    amount = float(input("How much do you want to withdraw? "))
+                    b.withdraw(pnr, acc_nr, amount)
+                    input("Press enter to continue")
+                    clear_console()
+                    break
                 except ValueError:
                     print("Please use numbers for all fields and a valid social security number")
                 except KeyboardInterrupt:
