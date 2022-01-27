@@ -11,6 +11,7 @@ def clear_console():
 
 if __name__ == '__main__':
     b = Bank()
+    b._load()
     clear_console()
 
     pnr_limit_max = 20100000
